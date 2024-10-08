@@ -61,7 +61,7 @@ def get_openai_response(prompt, data, api_key):
     
     try:
         response = client.chat.completions.create(
-            model="gpt-4",
+            model="gpt-4o-mini",  # Make sure this model name is correct and available to you
             messages=[
                 {"role": "system", "content": "You are an expert senior sales analyst that answers questions about CSV data."},
                 {"role": "user", "content": context}
