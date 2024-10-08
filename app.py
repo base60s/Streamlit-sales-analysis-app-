@@ -2,7 +2,7 @@ import streamlit as st
 import csv
 import io
 from collections import defaultdict
-import openai
+from openai import OpenAI
 import os  # Add this line to import the os module
 
 def read_csv(file):
@@ -55,12 +55,12 @@ def generate_report(sales_per_salesman, total_budget, salesman_budget):
         st.write(f"  Porcentaje del Presupuesto Alcanzado: {(sales / salesman_budget) * 100:.2f}%")
 
 def get_openai_response(prompt, data, api_key):
-    openai.api_key = api_key
+    client = OpenAI(api_key=api_key)
     
     context = f"CSV data: {data[:10]}\n\nQuestion: {prompt}\n\nAnswer:"
     
     try:
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-4",
             messages=[
                 {"role": "system", "content": "You are an expert senior sales analyst that answers questions about CSV data."},
